@@ -1,0 +1,104 @@
+package UTS;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class uts3 {
+
+    static int totalMaksMobilSemuaLantai = 450; //diubah sesuai soal
+    static int maksMobilPerLantai = 150;
+    public static String[] Lantai1 = new String[150];
+    public static String[] Lantai2 = new String[150];
+    public static String[] Lantai3 = new String[150];
+
+    public static void PrintInfoMobil() {
+        int totalLantai1 = 0;
+        int totalSisaKuota;
+        int totalSisakuota1;
+        int totalSisaKuota2;
+        int totalSisaKuota3;
+        for (String s : Lantai1) {
+            if (s != null) {
+                totalLantai1++;
+            }
+        }
+        int totalLantai2 = 0;
+        for (String s : Lantai2) {
+            if (s != null) {
+                totalLantai2++;
+            }
+        }
+        int totalLantai3 = 0;
+        for (String s : Lantai3) {
+            if (s != null) {
+                totalLantai3++;
+            }
+        }
+        totalSisakuota1 = maksMobilPerLantai - totalLantai1;
+        totalSisaKuota2 = maksMobilPerLantai - totalLantai2;
+        totalSisaKuota3 = maksMobilPerLantai - totalLantai3;
+        totalSisaKuota = totalMaksMobilSemuaLantai - totalLantai1 - totalLantai2 - totalLantai3;
+        System.out.println("Total Mobil di Lantai 1 : " + totalSisakuota1 + "| Total Mobil di Lantai 2 : " + totalSisaKuota2 + " | Total Mobil di Lantai 3 : " + totalSisaKuota3);
+        System.out.println("Jumlah Maksimal Mobil Seluruh Lantai : " + totalMaksMobilSemuaLantai + " | Total Sisa Kuota: " + totalSisaKuota);
+        System.out.println();
+        System.out.println("-----------------------------------------------------");
+
+    }
+
+    public static void checkIndexArray(String[] myArray, String mobil) {
+        int indexNow = 0;
+        for (int i = 0; i < myArray.length; i++) {
+            if (myArray[i] != null) {
+                indexNow = i + 1;
+            }
+        }
+        if (indexNow < myArray.length) {
+            myArray[indexNow] = mobil;
+        }
+    }
+
+    public static void simpanMobilMasuk(int angkaRandom, String mobil) {
+        switch (angkaRandom) {
+            case 1 -> {
+                checkIndexArray(Lantai1, mobil);
+                System.out.println("Anda Memarkirkan Mobil Di Lantai 1");
+                PrintInfoMobil();
+
+            }
+            case 2 -> {
+                checkIndexArray(Lantai2, mobil);
+                System.out.println("Anda Memarkirkan Mobil Di Lantai 2");
+                PrintInfoMobil();
+            }
+            case 3 -> {
+                checkIndexArray(Lantai3, mobil);
+                System.out.println("Anda Memarkirkan Mobil Di Lantai 3");
+                PrintInfoMobil();
+            }
+        }
+    }
+
+    public static void inputMobil() {
+        Scanner inputData = new Scanner(System.in);
+        //noinspection InfiniteLoopStatement
+        while (true) {
+            System.out.println("Plat Nomer Mobil : ");
+            String platNomer = inputData.nextLine();
+            System.out.println("Berat Mobil : ");
+            inputData.nextInt();
+
+            if (platNomer.isBlank()) {
+                System.out.println("Plat Nomer wajib diisi ");
+                inputMobil();
+            } else {
+                Random hasilRandom = new Random();
+                int JenisRandom = hasilRandom.nextInt(
+                        3) + 1;
+                simpanMobilMasuk(JenisRandom, platNomer);
+            }
+        }
+    }
+    public static void main(String[] args) {
+        inputMobil();
+    }
+}
